@@ -1,5 +1,5 @@
 #Use an official Python runtime as parent image
-FROM python:3.8.10
+FROM python:3.10.0
 
 #Set environment variables for Python to not buffer output
 ENV PYTHONBUFFERED 1
@@ -10,8 +10,9 @@ WORKDIR /app
 #Copy the current directory contents into the container at /app
 COPY . /app/
 
-#Install any neeeded dependencies specified in the requirements.txt
-RUN pip install -r requirements.txt
+#Install poetry and use poetry to install all the dependencies in the poetry.lock file
+RUN pip install poetry
+RUN poetry install
 
 #Expose the port that Django runs on
 EXPOSE 8000
